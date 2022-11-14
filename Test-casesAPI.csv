@@ -1,0 +1,1063 @@
+Swagger Petstore,,,,,,
+Enviroment: Postman Version 10.0.35,,,,,,
+№,Приоритет,Название,Предусловия,Тестовые данные,Шаги ,Ожидаемый результат
+1,High,Сделать заказ на питомца методом (POST),"Headers request:
+Content-Type: application/json","Параметры в случае (POST) передаются в теле запроса в JSON объекте. 
+1) id = 420
+2) petID = 420
+3) status = placed
+
+Тело запроса: 
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}","Отправить (POST) запрос https://petstore.swagger.io/v2/store/order
+
+или по-другому записать шаг
+
+Иницировать вызов сервиса методом (POST) с телом",Запрос успешно отправлен на сервер (или запрос успешно иницирован)
+,,,,,Проверить код состояния,"HTTP Status: 200 OK
+"
+,,,,,Проверить тело ответа от сервера,"Тело ответа в формате JSON (сформированный объект JSON) возращается от сервера и будет иметь следующий вид:
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}
+Каждое поле JSON объекта соответствует аргументу метода сервиса."
+,,,,,Проверить структуру ответа,"Схема JSON отображена корректно
+имена и типы полей соответствуют ожидаемым, включая вложенные объекты:
+""category"": {
+    ""id"": 420,
+    ""petID"": ""420""
+  }
+
+значения полей соответствуют ожидаемым значениям из тестовых данных:
+  ""id"": {{userID}},
+  ""petId"": {{petID}},
+  ""quantity"": 0,
+  ""shipDate"": ""2022-10-19T19:21:46.632Z"",
+  ""status"": ""placed"",
+  ""complete"": true    
+     "
+,,,,,Проверить заголовки ответа,"access-control-allow-headers: Content-Type,api_key,Authorization  
+access-control-allow-methods: GET,POST,DELETE,PUT  
+access-control-allow-origin: *  
+content-type: application/json  
+date: Sun, 23 Oct 2022 17:26:25 GMT
+server: Jetty(9.2.9.v20150224) 
+transfer-enconding: chunked
+connection: keep-alive"
+2,Medium,Сделать заказ на питомца методом (GET) - попытка создать ресурс недопустимым методом,"Headers request:
+Content-Type: application/json","Параметры в случае (GET) передаются в теле запроса в JSON объекте. 
+1) id = 420
+2) petID = 420
+3) status = placed
+
+Тело запроса: 
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}",Отправить (GET) запрос https://petstore.swagger.io/v2/store/order,Запрос успешно отправлен на сервер
+,,,,,Проверить код состояния,HTTP Status: 405 Method Not Allowed
+,,,,,Проверить тело ответа от сервера,"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: close
+Access-Control-Allow-Origin: *
+"
+3,Medium,"Сделать заказ на питомца 
+Вызов метода (POST) - Попытка создать ресурс c телом JSON и c content-type = XML","Headers request:
+Content-Type: application/xml
+
+Postman: Body -> Raw -> XML","Параметры в случае (POST) передаются в теле запроса в JSON объекте. 
+1) id = 420
+2) petID = 420
+3) status = placed
+
+Тело запроса: 
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}","Отправить (POST) запрос https://petstore.swagger.io/v2/store/order
+
+или по-другому записать шаг
+
+Иницировать вызов сервиса методом (POST) с телом",Запрос успешно отправлен на сервер
+,,,,,Проверить код состояния,"HTTP Status:  400 Bad Request
+Код состояния HTTP соответствует типу ошибки"
+,,,,,Проверить тело ответа от сервера,"Тело ответа в формате JSON будет иметь следующий вид:
+{
+    ""code"": 400,
+    ""type"": ""unknown"",
+    ""message"": ""javax.xml.bind.UnmarshalException\n - with linked exception:\n[org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.]""
+}
+описание ошибки правильное для данного типа ошибки "
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: close
+Access-Control-Allow-Origin: *"
+4,Medium,"Сделать заказ на питомца 
+Вызов метода (POST) - Попытка создать ресурс c телом JSON и c content-type = Javascript","Headers request:
+Content-Type: application/javascript
+
+Postman: Body -> Raw -> JavaScript","Параметры в случае (POST) передаются в теле запроса в JSON объекте. 
+1) id = 420
+2) petID = 420
+3) status = placed
+
+Тело запроса: 
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}","Отправить (POST) запрос https://petstore.swagger.io/v2/store/order
+
+или по-другому записать шаг
+
+Иницировать вызов сервиса методом (POST) с телом",Запрос успешно отправлен на сервер
+,,,,,Проверить код состояния,HTTP Status: 200 OK
+,,,,,Проверить тело ответа от сервера,"{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}"
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: close
+Access-Control-Allow-Origin: *"
+5,Medium,"Сделать заказ на питомца
+Вызов метода (POST) - Попытка создать ресурс c полем, не допускающим значение NULL, но равен NULL в теле запроса","Headers request:
+Content-Type: application/json","Параметры в случае (POST) передаются в теле запроса в JSON объекте. 
+1) id = NULL
+2) petID = NULL
+3) status = placed
+
+Тело запроса: 
+{
+    ""id"": NULL,
+    ""petId"": NULL,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}","Отправить (POST) запрос https://petstore.swagger.io/v2/store/order
+
+или по-другому записать шаг
+
+Иницировать вызов сервиса методом (POST) с телом",Запрос успешно отправлен на сервер
+,,,,,Проверить код состояния,"HTTP Status: 200 OK
+"
+,,,,,Проверить тело ответа от сервера,"Тело ответа в формате JSON будет иметь следующий вид:
+{
+    ""id"": 2022999111261,
+    ""petId"": 0,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}"
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: close
+Access-Control-Allow-Origin: *"
+6,Medium,"Сделать заказ на питомца
+Вызов метода (POST) - Попытка создать ресурс с использованием несуществующего адреса","Headers tab:
+Content-Type: application/json","Параметры в случае (POST) передаются в теле запроса в JSON объекте. 
+1) id = 420
+2) petID = 420
+3) status = placed
+
+Тело запроса: 
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-19T19:21:46.632+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}",Отправить (POST) запрос https://petstore.swagger.io/v2/store/order1,Запрос успешно отправлен на сервер
+,,,,,Проверить код состояния,"HTTP Status: 404 Not Found
+
+Код состояния HTTP соответствует типу ошибки"
+,,,,,Проверить тело ответа от сервера,"Тело ответа в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <message>null for uri: http://petstore.swagger.io/v2/store/order1</message>
+    <type>unknown</type>
+</apiResponse>
+
+описание ошибки правильное для данного типа ошибки "
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: close
+Access-Control-Allow-Origin: *"
+7,High,"Сделать заказ на питомца 
+Вызов метода (POST) - Попытка создать ресурс c пустым JSON объектом","Headers tab:
+Content-Type: application/json","Параметры в случае (POST) передаются в теле запроса в JSON объекте. 
+{
+}",Отправить POST запрос https://petstore.swagger.io/v2/store/order,Запрос успешно отправлен на сервер
+,,,,,Проверить код состояния,"HTTP Status: 400 Bad Request
+"
+,,,,,Проверить тело ответа от сервера,"Тело ответа в формате JSON будет иметь следующий вид:
+{
+    ""code"": 400,
+    ""type"": ""unknown"",
+    ""message"": ""bad input""
+}"
+1,High,Найти заказ по ID методом (GET),"Headers tab:
+Content-Type: application/json",OrderID = 420 используется в endpoint,Отправить (GET) запрос https://petstore.swagger.io/v2/store/order/420,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 200 OK
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера ,"Тело в формате JSON будет иметь следующий вид:
+
+{
+    ""id"": 420,
+    ""petId"": 420,
+    ""quantity"": 0,
+    ""shipDate"": ""2022-10-23T16:19:16.374+0000"",
+    ""status"": ""placed"",
+    ""complete"": true
+}
+"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: close
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+2,Medium,"Найти заказ по ID
+Вызов метода (POST)","Headers tab:
+Content-Type: application/json",OrderID = 420 используется в endpoint,Отправить POST запрос https://petstore.swagger.io/v2/store/order/420,Запрос успешно отправлен
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,405 Method not allowed 
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера ,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа ,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+3,Medium,"Найти заказ по ID Вызов метода (GET) - попытка создать ресурс, значение endpoint'a которого = NULL","Headers tab:
+Content-Type: application/json",OrderID = NULL используется в endpoint,Отправить GET запрос на https://petstore.swagger.io/v2/store/order/0,Запрос успешно отправлен
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,404 Not Found
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера ,"Тело в формате JSON будет иметь следующий вид:
+
+{
+    ""code"": 1,
+    ""type"": ""error"",
+    ""message"": ""Order not found""
+}"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа ,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+4,Medium,"Найти заказ по ID
+Вызов метода GET - Попытка создать ресурс с использованием несуществующего адреса","Headers tab:
+Content-Type: application/json",OrderID = 420 используется в endpoint ,Отправить GET запросhttps://petstore.swagger.io/v2/store/order1/420,Запрос успешно отправлен
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,404 Not Found
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера ,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <message>null for uri: http://petstore.swagger.io/v2/store/order1/420</message>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа ,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 181
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+5,Medium,"Найти заказ по ID 
+Вызов метода GET - Попытка создать ресурс с использованием пустого endpoint'a","Headers tab:
+Content-Type: application/json",OrderID =  используется в endpoint ,Отправить GET запрос на https://petstore.swagger.io/v2/store/order/,Запрос успешно отправлен 
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,405 Method not Allowed 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа ,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Sun, 23 Oct 2022 17:48:01 GMT
+Content-Type: application/xml
+Content-Lenght: 102
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+1,High,"Удалить заказ по ID
+Вызов метода (DELETE)","Headers tab:
+Content-Type: application/json",OrderID = 420 используется в endpoint ,Отправить DELETE запрос https://petstore.swagger.io/v2/store/order/420,Запрос успешно отправлен
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,HTTP Status: 200 OK
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате JSON будет иметь следующий вид:
+
+{
+    ""code"": 200,
+    ""type"": ""unknown"",
+    ""message"": ""420""
+}"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+2,Medium,"Удалить заказ по ID:
+Вызов метода (POST)","Headers tab:
+Content-Type: application/json",OrderID = 420 используется в endpoint ,Отправить POST запрос https://petstore.swagger.io/v2/store/order/420,Запрос успешно отправлен
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,405 Method Not Allowed
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 102"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+3,Medium,"Удалить заказ по ID
+Вызов метода (DELETE) - попытка создать ресурс, значение endpoint'a которого = NULL","Headers tab:
+Content-Type: application/json",OrderID = NULL используется в endpoint ,Отправить DELETE запрос https://petstore.swagger.io/v2/store/order/0,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,HTTP Status: 404 Not Found 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате JSON будет иметь следующий вид:
+
+{
+    ""code"": 404,
+    ""type"": ""unknown"",
+    ""message"": ""Order Not Found""
+}"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 102"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+4,Medium,"Удалить заказ по ID
+Вызов метода DELETE - Попытка создать ресурс с использованием несуществующего адреса","Headers tab:
+Content-Type: application/json",OrderID = 420 используется в endpoint,Отправить DELETE запрос https://petstore.swagger.io/v2/store1/order/420,Запрос успешно отправлен на сервер 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния ,HTTP Status: 404 Not Found 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <message>null for uri: http://petstore.swagger.io/v2/store1/order/420</message>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 181"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+5,High,"Удалить заказ по ID
+Повторный вызов метода DELETE, отсутствие сущности после удаления ","Headers tab:
+Content-Type: application/json
+
+Создать методом POST place in order
+
+Удалить orderID методом DELETE",OrderID = 420 используется в endpoint,Отправить повторный DELETE запрос https://petstore.swagger.io/v2/store/order/420,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 404 Not Found 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате JSON будет иметь следующий вид:
+
+{
+    ""code"": 404,
+    ""type"": ""unknown"",
+    ""message"": ""Order Not Found""
+}"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+6,Medium,"Удалить заказ по ID
+Вызов метода DELETE - Попытка создать ресурс с использованием пустого endpoint'a","Headers tab:
+Content-Type: application/json
+
+Создать методом POST place in order",OrderID = используется в endpoint,Отправить DELETE запрос https://petstore.swagger.io/v2/store1/order/,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 405 Method Not Allowed 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+1,High,"Возвращает инвентарь домашних животных
+Вызов метода (GET) ","Headers tab:
+Content-Type: application/json",,Отправить GET запрос  https://petstore.swagger.io/v2/store/inventory,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 200 OK
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате JSON будет иметь следующий вид:
+
+{
+    ""totvs"": 1,
+    ""sold"": 10,
+    ""string"": 225,
+    ""good pet"": 1,
+    ""unavailable"": 10,
+    ""do not touch"": 1,
+    ""pending"": 16,
+    ""available"": 501,
+    ""wQ"": 1,
+    ""Available"": 1,
+    ""peric"": 12
+}"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+2,Medium,"Возвращает инвентарь домашних животных
+Вызов метода (POST)","Headers tab:
+Content-Type: application/json",,Отправить POST запрос https://petstore.swagger.io/v2/store/inventory,Запрос успешно отправлен на сервер 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 405 Method Not Allowed 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 102"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+3,Medium,"Возвращает инвентарь домашних животных
+Вызов метода (GET) - попытка создать ресурс, значение endpoint'a которого = NULL","Headers tab:
+Content-Type: application/json",,Отправить GET запрос  https://petstore.swagger.io/v2/store/0,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 404 Not Found
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <message>null for uri: http://petstore.swagger.io/v2/store/0</message>
+    <type>unknown</type>
+</apiResponse>
+"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 172"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+4,Medium,"Возвращает инвентарь домашних животных
+Вызов метода (GET) - попытка создать ресурс c использованием несуществующего адреса ","Headers tab:
+Content-Type: application/json",,Отправить GET запрос  https://petstore.swagger.io/v2/store1/inventory,Запрос успешно отправлен на сервер 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 404 Not Found 
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <message>null for uri: http://petstore.swagger.io/v2/store1/inventory</message>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 181"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+5,Medium,"Возвращает инвентарь домашних животных 
+Вызов метода (GET) - попытка создать ресурс с использованием пустого endpoint'a","Headers tab:
+Content-Type: application/json",,Отправить GET запрос  https://petstore.swagger.io/v2/store/,Запрос успешно отправлен на сервер
+,,,,,,
+,,,,,,
+,,,,,Проверить код состояния,HTTP Status: 405 Method Not Allowed 
+,,,,,,
+,,,,,,
+,,,,,Проверить тело ответа от сервера,"Тело в формате XML будет иметь следующий вид:
+
+<?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
+<apiResponse>
+    <type>unknown</type>
+</apiResponse>"
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,Проверить заголовки ответа,"Access-control-allow-headers: Content-Type,api_key,Authorization  
+Access-control-allow-methods: GET,POST,DELETE,PUT  
+Server: Jetty(9.2.9.v20150224)  
+Date: Mon, 24 Oct 2022 10:02:59 GMT
+Content-Type: application/xml
+Connection: keep-alive
+Access-Control-Allow-Origin: *
+Content-Length: 102"
